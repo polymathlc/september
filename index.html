@@ -1180,7 +1180,7 @@
     <div class="header-badge">2026 September Holidays</div>
     <h1>Math and Science Workshop Registration</h1>
     <h2>PSLE Math &amp; Science Revision</h2>
-    <p>3-day intensive workshops, 9 hours each. Conducted by Mr. Chung, founder of Polymath Learning Centre.</p>
+    <p>3-day intensive workshops, 9 hours each. Held in person at our Clementi centre — 12 seats per workshop. Conducted by Mr. Chung, founder of Polymath Learning Centre.</p>
   </header>
 
   <!-- INFO STRIP -->
@@ -1196,14 +1196,14 @@
       <div class="info-value">9 Total</div>
     </div>
     <div class="info-cell">
-      <div class="info-icon">&#128300;</div>
-      <div class="info-label">Science</div>
+      <div class="info-icon">&#127979;</div>
+      <div class="info-label">Fee</div>
       <div class="info-value">$360</div>
     </div>
     <div class="info-cell">
-      <div class="info-icon">&#128208;</div>
-      <div class="info-label">Math</div>
-      <div class="info-value">$360</div>
+      <div class="info-icon">&#129681;</div>
+      <div class="info-label">Seats</div>
+      <div class="info-value">12 Only</div>
     </div>
   </div>
 
@@ -1260,12 +1260,10 @@
       <div class="card-title"><span class="step-num">3</span> Class Mode</div>
       <div class="field">
         <label>How would you like to attend? <span class="req">*</span></label>
-        <select id="mode" required title="Online classes run on Zoom; physical classes run at our Clementi centre (max 14 students)">
-          <option value="" disabled selected>Choose class mode</option>
-          <option value="Online">Online — $360</option>
-          <option value="Physical">Physical @ Clementi — $360 (max 14 students)</option>
+        <select id="mode" required title="Physical classes only — mock exams are conducted on-site at our Clementi centre (max 12 students)">
+          <option value="Physical" selected>Physical @ Clementi — $360 (max 12 students)</option>
         </select>
-        <div class="hint">Online: attend on Zoom from anywhere. Physical: in-person at Clementi (limited seats).</div>
+        <div class="hint">Physical classes only, as mock exams are conducted on-site at our Clementi centre. Limited to 12 seats per workshop.</div>
       </div>
       <div class="step-hint" id="hint-mode">Select a workshop in Step 2 to unlock this step.</div>
     </div>
@@ -1414,7 +1412,7 @@ const NOTIFICATION_EMAILS = [
 ];
 
 // ─── Slot Config ───
-const PHYSICAL_MAX = 14;
+const PHYSICAL_MAX = 12;
 
 const SLOT_CONFIG = {
   'SCI-S1': { label: 'Science — 7, 8 & 9 Sep (Mon–Wed) 10am–1pm', level: 'Science' },
@@ -1759,8 +1757,7 @@ function onSlotChange() {
 }
 
 function getPrice() {
-  const mode = modeSelect.value;
-  return mode === 'Physical' || mode === 'Online' ? 360 : 0;
+  return modeSelect.value === 'Physical' ? 360 : 0;
 }
 
 function updatePrice() {
@@ -1909,7 +1906,7 @@ function updateProgression() {
   if (!s.detailsOk || !s.level) {
     setHint('hint-mode', 'Select a workshop in Step 2 to unlock this step.', 'warn');
   } else if (!s.mode) {
-    setHint('hint-mode', 'Choose Online ($360) or Physical @ Clementi ($360).', 'warn');
+    setHint('hint-mode', 'Physical @ Clementi ($360) — mock exams are conducted on-site.', 'warn');
   } else {
     setHint('hint-mode', 'Class mode selected: ' + s.mode + ' — $' + getPrice(), 'ok');
   }
@@ -2392,7 +2389,7 @@ function renderAdminRegistrations() {
 
   const modeOptions = (current) => {
     const cur = (current || '').toLowerCase();
-    return ['Physical', 'Online'].map(m =>
+    return ['Physical'].map(m =>
       '<option value="' + m + '"' + (m.toLowerCase() === cur ? ' selected' : '') + '>' + m + '</option>'
     ).join('');
   };
