@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Polymath Learning Centre — 2026 June Holiday Programme Registration</title>
+<title>Polymath Learning Centre — 2026 September Holidays Math and Science Workshop Registration</title>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
@@ -1154,11 +1154,11 @@
   <details class="admin-group" style="margin-top:18px;">
     <summary>Danger Zone <span class="count-badge">!</span></summary>
     <div style="padding:10px 12px;">
-      <button id="admin-reset-btn" onclick="resetAllToP6S1()"
+      <button id="admin-reset-btn" onclick="resetAllToSciS1()"
               style="width:100%;padding:10px 12px;font-size:11px;font-weight:700;
                      text-transform:uppercase;letter-spacing:1.5px;background:var(--danger);
                      color:var(--white);border:none;border-radius:var(--radius-xs);cursor:pointer;">
-        Reset All Registrations → 2 &amp; 3 June (P6-S1)
+        Reset All Registrations → 7–9 Sep (SCI-S1)
       </button>
       <div id="admin-reset-status" style="font-size:11px;color:var(--gray-500);margin-top:8px;"></div>
     </div>
@@ -1176,10 +1176,10 @@
       referrerpolicy="no-referrer"
       onerror="this.onerror=null;this.src='https://www.dropbox.com/scl/fi/h40yjlyg8ldefwfaa3dib/polymath-logo-sticker.png?rlkey=o1ra4taqy79gt9t8u096v82zj&raw=1';"
     >
-    <div class="header-badge">2026 June Holiday Programme</div>
-    <h1>Science Workshop Registration</h1>
-    <h2>P5 &amp; P6 Science Revision</h2>
-    <p>2-day intensive programme, 3 hours per day (6 hours total). Conducted by Mr. Chung, founder of Polymath Learning Centre.</p>
+    <div class="header-badge">2026 September Holidays</div>
+    <h1>Math and Science Workshop Registration</h1>
+    <h2>PSLE Math &amp; Science Revision</h2>
+    <p>3-day intensive workshops, 9 hours each. Conducted by Mr. Chung, founder of Polymath Learning Centre.</p>
   </header>
 
   <!-- INFO STRIP -->
@@ -1187,22 +1187,22 @@
     <div class="info-cell">
       <div class="info-icon">&#128197;</div>
       <div class="info-label">Duration</div>
-      <div class="info-value">2 Days</div>
+      <div class="info-value">3 Days</div>
     </div>
     <div class="info-cell">
       <div class="info-icon">&#9201;</div>
       <div class="info-label">Hours</div>
-      <div class="info-value">6 Total</div>
+      <div class="info-value">9 Total</div>
     </div>
     <div class="info-cell">
-      <div class="info-icon">&#128187;</div>
-      <div class="info-label">Online</div>
-      <div class="info-value">$240</div>
+      <div class="info-icon">&#128300;</div>
+      <div class="info-label">Science</div>
+      <div class="info-value">$360</div>
     </div>
     <div class="info-cell">
-      <div class="info-icon">&#127979;</div>
-      <div class="info-label">Physical</div>
-      <div class="info-value">$280</div>
+      <div class="info-icon">&#128208;</div>
+      <div class="info-label">Math</div>
+      <div class="info-value">$360</div>
     </div>
   </div>
 
@@ -1234,20 +1234,20 @@
 
     <!-- Step 2 — Level -->
     <div class="card fade-in locked" id="level-card" style="animation-delay:0.16s">
-      <div class="card-title"><span class="step-num">2</span> Select Level</div>
+      <div class="card-title"><span class="step-num">2</span> Select Workshop</div>
       <div class="field">
-        <label>Which level is the student in? <span class="req">*</span></label>
-        <select id="level" required title="Pick the student's current primary level">
-          <option value="" disabled selected>Choose a level</option>
-          <option value="P6">P6 Science</option>
-          <option value="P5">P5 Science</option>
+        <label>Which workshop would you like to join? <span class="req">*</span></label>
+        <select id="level" required title="Pick the September holiday workshop your child will attend">
+          <option value="" disabled selected>Choose a workshop</option>
+          <option value="Science">Science September Holiday Workshop — $360</option>
+          <option value="Math">Math September Workshop — $360</option>
         </select>
-        <div class="hint">This determines which dates, slots and topic scope are shown.</div>
+        <div class="hint">This determines which dates, slots and daily programme are shown.</div>
       </div>
 
       <div class="scope-panel hidden" id="scope-panel">
-        <h4 class="scope-title"><span id="scope-heading">Workshop Scope</span></h4>
-        <p class="scope-sub" id="scope-sub">Topics your child will cover over the 2-day intensive.</p>
+        <h4 class="scope-title"><span id="scope-heading">Workshop Programme</span></h4>
+        <p class="scope-sub" id="scope-sub">What your child will cover over the 3-day intensive.</p>
         <ul class="scope-list" id="scope-list"></ul>
       </div>
 
@@ -1261,48 +1261,41 @@
         <label>How would you like to attend? <span class="req">*</span></label>
         <select id="mode" required title="Online classes run on Zoom; physical classes run at our Clementi centre (max 14 students)">
           <option value="" disabled selected>Choose class mode</option>
-          <option value="Online">Online — $240</option>
-          <option value="Physical">Physical @ Clementi — $280 (max 14 students)</option>
+          <option value="Online">Online — $360</option>
+          <option value="Physical">Physical @ Clementi — $360 (max 14 students)</option>
         </select>
         <div class="hint">Online: attend on Zoom from anywhere. Physical: in-person at Clementi (limited seats).</div>
       </div>
-      <div class="step-hint" id="hint-mode">Select a level in Step 2 to unlock this step.</div>
+      <div class="step-hint" id="hint-mode">Select a workshop in Step 2 to unlock this step.</div>
     </div>
 
     <!-- Step 4 — Slot -->
     <div class="card fade-in locked" id="slot-card" style="animation-delay:0.2s">
       <div class="card-title"><span class="step-num">4</span> Choose Your Slot <span class="req">*</span></div>
-      <p style="font-size:12px;color:var(--gray-500);margin-bottom:18px;">Choose <strong style="color:var(--black)">1 slot only</strong>. Slots update based on your selected level.</p>
+      <p style="font-size:12px;color:var(--gray-500);margin-bottom:18px;">Choose <strong style="color:var(--black)">1 slot only</strong>. Slots update based on your selected workshop.</p>
 
-      <div id="p6-slots" class="slot-grid slot-hidden">
-        <label class="slot-card" id="slot-p6-s1-card">
-          <input type="radio" name="slot" value="P6-S1" id="slot-p6-s1">
-          <div class="slot-dates">2 &amp; 3 June</div>
-          <div class="slot-days">Tue &amp; Wed</div>
+      <div id="science-slots" class="slot-grid slot-hidden">
+        <label class="slot-card" id="slot-sci-s1-card">
+          <input type="radio" name="slot" value="SCI-S1" id="slot-sci-s1">
+          <div class="slot-dates">7, 8 &amp; 9 Sep</div>
+          <div class="slot-days">Mon – Wed</div>
           <div class="slot-time">10:00 AM – 1:00 PM</div>
-          <div class="slot-seats" id="seats-p6-s1">Loading...</div>
-        </label>
-        <label class="slot-card" id="slot-p6-s2-card">
-          <input type="radio" name="slot" value="P6-S2" id="slot-p6-s2">
-          <div class="slot-dates">6 &amp; 7 June</div>
-          <div class="slot-days">Sat &amp; Sun</div>
-          <div class="slot-time">3:00 PM – 6:00 PM</div>
-          <div class="slot-seats" id="seats-p6-s2">Loading...</div>
+          <div class="slot-seats" id="seats-sci-s1">Loading...</div>
         </label>
       </div>
 
-      <div id="p5-slots" class="slot-grid slot-hidden">
-        <label class="slot-card" id="slot-p5-s2-card">
-          <input type="radio" name="slot" value="P5-S2" id="slot-p5-s2">
-          <div class="slot-dates">13 &amp; 14 June</div>
-          <div class="slot-days">Sat &amp; Sun</div>
-          <div class="slot-time">3:00 PM – 6:00 PM</div>
-          <div class="slot-seats" id="seats-p5-s2">Loading...</div>
+      <div id="math-slots" class="slot-grid slot-hidden">
+        <label class="slot-card" id="slot-math-s1-card">
+          <input type="radio" name="slot" value="MATH-S1" id="slot-math-s1">
+          <div class="slot-dates">10, 11 &amp; 12 Sep</div>
+          <div class="slot-days">Thu – Sat</div>
+          <div class="slot-time">Thu &amp; Fri 10 AM – 1 PM<br>Sat 3 PM – 6 PM</div>
+          <div class="slot-seats" id="seats-math-s1">Loading...</div>
         </label>
       </div>
 
       <div id="no-level-msg" style="text-align:center;padding:24px;color:var(--gray-400);font-size:13px;">
-        Select a level above to view available slots.
+        Select a workshop above to view available slots.
       </div>
 
       <div class="price-display hidden" id="price-display">
@@ -1310,7 +1303,7 @@
         <div class="price-amount" id="price-amount">$0</div>
       </div>
 
-      <div class="step-hint" id="hint-slot">Select level and class mode in the previous steps to see available slots.</div>
+      <div class="step-hint" id="hint-slot">Select workshop and class mode in the previous steps to see available slots.</div>
     </div>
 
     <!-- Step 5 — Payment -->
@@ -1354,7 +1347,7 @@
       <div class="disclaimer-box">
         <h4>A Few Things Before You Submit</h4>
         <p style="font-size:12px;color:var(--gray-600);margin-bottom:10px;line-height:1.6;">
-          Thank you so much for choosing Polymath Learning Centre for your child's June holiday enrichment. We're really looking forward to having them join us! Before you hit submit, please take a moment to read through the points below so there are no surprises later.
+          Thank you so much for choosing Polymath Learning Centre for your child's September holiday enrichment. We're really looking forward to having them join us! Before you hit submit, please take a moment to read through the points below so there are no surprises later.
         </p>
         <ul>
           <li>Please double-check the details above — especially the student's name, level, slot and parent contact details — so we can look after your child properly.</li>
@@ -1423,46 +1416,42 @@ const NOTIFICATION_EMAILS = [
 const PHYSICAL_MAX = 14;
 
 const SLOT_CONFIG = {
-  'P6-S1': { label: 'P6 Sci — 2 & 3 Jun (Tue & Wed) 10am–1pm', level: 'P6' },
-  'P6-S2': { label: 'P6 Sci — 6 & 7 Jun (Sat & Sun) 3pm–6pm', level: 'P6' },
-  'P5-S2': { label: 'P5 Sci — 13 & 14 Jun (Sat & Sun) 3pm–6pm', level: 'P5' },
+  'SCI-S1': { label: 'Science — 7, 8 & 9 Sep (Mon–Wed) 10am–1pm', level: 'Science' },
+  'MATH-S1': { label: 'Math — 10, 11 & 12 Sep (Thu & Fri 10am–1pm, Sat 3pm–6pm)', level: 'Math' },
 };
 
 let slotCounts = {};
 Object.keys(SLOT_CONFIG).forEach(k => slotCounts[k] = { physical: 0, online: 0 });
 
-// ─── Workshop Scope (topics covered per level) ───
-// Shown inside the level card as soon as a level is picked, so parents can
-// see exactly what their child will cover before committing to a slot.
+// ─── Workshop Programme (day-by-day breakdown per workshop) ───
+// Shown inside the workshop card as soon as a workshop is picked, so parents
+// can see exactly what their child will cover before committing to a slot.
 const SCOPE_CONTENT = {
-  P5: {
-    heading: 'P5 Science Workshop Scope',
-    subtitle: 'Topics your child will cover over the 2-day intensive.',
+  Science: {
+    heading: 'Science September Holiday Workshop',
+    subtitle: '7, 8 & 9 September (Mon–Wed), 10 am to 1 pm daily.',
     items: [
-      'Water and its 3 states',
-      'Electrical systems',
-      'Plant and human reproduction',
-      'Human and plant transport system',
-      'Forces',
-      'Analysing different question types',
-      'Template to craft open-ended answers for any PSLE question',
-      'Common misconceptions',
-      'Using the TCQ–CER method to conquer open-ended questions'
+      'Mon 7 Sep, 10.00–11.45 am — Mock Exam',
+      'Mon 7 Sep, 11.45 am–12.00 pm — Refreshments and break',
+      'Mon 7 Sep, 12.00–1.00 pm — Forces and Energy Essentials',
+      'Tue 8 Sep — Mistakes analysis after mock exam papers have been marked',
+      'Tue 8 Sep — PSLE Essentials Analysis',
+      'Wed 9 Sep — Water, Heat, Electrical System and Magnet Essentials',
+      'Wed 9 Sep — Plant and Human Respiratory and Circulatory System Essentials',
+      'Wed 9 Sep — Lower Block Revision'
     ]
   },
-  P6: {
-    heading: 'P6 Science Workshop Scope',
-    subtitle: 'Topics your child will cover over the 2-day intensive.',
+  Math: {
+    heading: 'Math September Workshop',
+    subtitle: '10, 11 & 12 September — Thu & Fri 10 am to 1 pm, Sat 3 pm to 6 pm (9 hours total).',
     items: [
-      'Living Together',
-      'Adaptations',
-      'Plants Reproduction',
-      'Water and its 3 states',
-      'Heat',
-      'Forces',
-      'Analysing different question types',
-      'Template to craft open-ended answers we use to ace the PSLE',
-      'Common misconceptions'
+      'Thu 10 Sep, 10.00 am–12.30 pm — Mock Exam',
+      'Thu 10 Sep, 12.30–1.00 pm — Rate and Volume Essentials',
+      'Fri 11 Sep — Mistake analysis after mock exam has been marked',
+      'Fri 11 Sep — PSLE Essentials Analysis',
+      'Sat 12 Sep — Heuristics',
+      'Sat 12 Sep — Ratio, Percentage and Fractions Essentials',
+      'Sat 12 Sep — Area and Perimeter and Angles Essentials'
     ]
   }
 };
@@ -1471,7 +1460,7 @@ const SCOPE_CONTENT = {
 let allRegistrations = [];
 
 function listenToSlotCounts() {
-  db.collection('june2026_registrations').onSnapshot(snapshot => {
+  db.collection('sep2026_registrations').onSnapshot(snapshot => {
     Object.keys(slotCounts).forEach(k => slotCounts[k] = { physical: 0, online: 0 });
     allRegistrations = [];
     snapshot.forEach(doc => {
@@ -1550,17 +1539,16 @@ const PAYNOW_UEN = 'T16LL2365E';
 const MERCHANT_NAME = 'POLYMATH LEARNING';
 
 // Short slot codes used in the PayNow reference so the payee can see
-// the level and exact dates at a glance (e.g. "P6JUN02").
+// the workshop and exact dates at a glance (e.g. "SCISEP07").
 const SLOT_REF_CODE = {
-  'P6-S1': 'P6JUN02',
-  'P6-S2': 'P6JUN06',
-  'P5-S2': 'P5JUN13'
+  'SCI-S1': 'SCISEP07',
+  'MATH-S1': 'MATSEP10'
 };
 
 // PayNow reference (EMV tag 62.05) is capped at 25 chars and should be
 // restricted to printable alphanumeric + spaces for maximum compatibility.
 function buildPaymentReference(slotVal, parentName) {
-  const slotCode = SLOT_REF_CODE[slotVal] || 'JUNSCI26';
+  const slotCode = SLOT_REF_CODE[slotVal] || 'SEPWS26';
   const cleanName = String(parentName || '')
     .toUpperCase()
     .replace(/[^A-Z0-9 ]/g, ' ')
@@ -1578,7 +1566,7 @@ function buildTLV(tag, value) {
 
 function buildPayNowString(amount, reference) {
   const mai26 = buildTLV('00', 'SG.PAYNOW') + buildTLV('01', '2') + buildTLV('02', PAYNOW_UEN) + buildTLV('03', '0');
-  const adt62 = buildTLV('05', reference || 'JUNESCI2026');
+  const adt62 = buildTLV('05', reference || 'SEPWS2026');
 
   let payload = '';
   payload += buildTLV('00', '01');
@@ -1683,7 +1671,7 @@ function downloadQR() {
   if (!source) { showToast('No QR code to download', false); return; }
   const a = document.createElement('a');
   a.href = source.toDataURL('image/png');
-  a.download = 'PayNow_Polymath_SciWorkshop.png';
+  a.download = 'PayNow_Polymath_SepWorkshop.png';
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -1700,8 +1688,8 @@ modeSelect.addEventListener('change', onLevelOrModeChange);
 
 function onLevelOrModeChange() {
   const level = levelSelect.value;
-  const p6Slots = document.getElementById('p6-slots');
-  const p5Slots = document.getElementById('p5-slots');
+  const sciSlots = document.getElementById('science-slots');
+  const mathSlots = document.getElementById('math-slots');
   const noMsg = document.getElementById('no-level-msg');
 
   document.querySelectorAll('input[name="slot"]').forEach(r => {
@@ -1710,16 +1698,16 @@ function onLevelOrModeChange() {
   });
 
   if (!level) {
-    p6Slots.classList.add('slot-hidden');
-    p5Slots.classList.add('slot-hidden');
+    sciSlots.classList.add('slot-hidden');
+    mathSlots.classList.add('slot-hidden');
     noMsg.classList.remove('hidden');
-  } else if (level === 'P6') {
-    p6Slots.classList.remove('slot-hidden');
-    p5Slots.classList.add('slot-hidden');
+  } else if (level === 'Science') {
+    sciSlots.classList.remove('slot-hidden');
+    mathSlots.classList.add('slot-hidden');
     noMsg.classList.add('hidden');
   } else {
-    p5Slots.classList.remove('slot-hidden');
-    p6Slots.classList.add('slot-hidden');
+    mathSlots.classList.remove('slot-hidden');
+    sciSlots.classList.add('slot-hidden');
     noMsg.classList.add('hidden');
   }
 
@@ -1771,7 +1759,7 @@ function onSlotChange() {
 
 function getPrice() {
   const mode = modeSelect.value;
-  return mode === 'Physical' ? 280 : mode === 'Online' ? 240 : 0;
+  return mode === 'Physical' || mode === 'Online' ? 360 : 0;
 }
 
 function updatePrice() {
@@ -1891,7 +1879,7 @@ function getFirstMissingMessage(state) {
   if (!EMAIL_RE.test(state.email)) return 'Please enter a valid email address (Step 1).';
   if (!state.whatsappRaw) return "Please enter the parent's WhatsApp number (Step 1).";
   if (!state.whatsappOk) return 'Please enter a valid 8-digit Singapore mobile number (Step 1).';
-  if (!state.level) return 'Please select a level (Step 2).';
+  if (!state.level) return 'Please select a workshop (Step 2).';
   if (!state.mode) return 'Please select a class mode (Step 3).';
   if (!state.slot) return 'Please choose a time slot (Step 4).';
   if (!state.receipt) return 'Please upload your PayNow receipt (Step 5).';
@@ -1911,23 +1899,23 @@ function updateProgression() {
   if (!s.detailsOk) {
     setHint('hint-level', 'Complete Step 1 (student & parent details) to unlock this step.', 'warn');
   } else if (!s.level) {
-    setHint('hint-level', 'Select P5 or P6 Science to continue.', 'warn');
+    setHint('hint-level', 'Select the Science or Math workshop to continue.', 'warn');
   } else {
-    setHint('hint-level', 'Level selected: ' + (s.level === 'P6' ? 'P6 Science' : 'P5 Science'), 'ok');
+    setHint('hint-level', 'Workshop selected: ' + (s.level === 'Science' ? 'Science September Holiday Workshop' : 'Math September Workshop'), 'ok');
   }
 
   // Step hint: Mode
   if (!s.detailsOk || !s.level) {
-    setHint('hint-mode', 'Select a level in Step 2 to unlock this step.', 'warn');
+    setHint('hint-mode', 'Select a workshop in Step 2 to unlock this step.', 'warn');
   } else if (!s.mode) {
-    setHint('hint-mode', 'Choose Online ($240) or Physical @ Clementi ($280).', 'warn');
+    setHint('hint-mode', 'Choose Online ($360) or Physical @ Clementi ($360).', 'warn');
   } else {
     setHint('hint-mode', 'Class mode selected: ' + s.mode + ' — $' + getPrice(), 'ok');
   }
 
   // Step hint: Slot
   if (!s.detailsOk || !s.level || !s.mode) {
-    setHint('hint-slot', 'Select level and class mode in the previous steps to see available slots.', 'warn');
+    setHint('hint-slot', 'Select workshop and class mode in the previous steps to see available slots.', 'warn');
   } else if (!s.slot) {
     setHint('hint-slot', 'Choose one date slot above to proceed to payment.', 'warn');
   } else {
@@ -1996,7 +1984,7 @@ async function sendEnrollmentNotification(data) {
     ['Parent Name', data.parentName],
     ['Parent Email', data.email],
     ['Parent WhatsApp', waLink],
-    ['Level', data.level],
+    ['Workshop', data.level],
     ['Class Mode', data.mode],
     ['Slot', data.slotLabel],
     ['Amount Paid', '$' + data.price],
@@ -2018,7 +2006,7 @@ async function sendEnrollmentNotification(data) {
   const html = ''
     + '<div style="font-family:Arial,Helvetica,sans-serif;color:#171717;max-width:640px;">'
     + '<h2 style="margin:0 0 16px;">New Enrollment — Polymath Holiday Programme</h2>'
-    + '<p style="color:#525252;font-size:13px;margin:0 0 16px;">A new student has signed up for the 2026 June Holiday Programme.</p>'
+    + '<p style="color:#525252;font-size:13px;margin:0 0 16px;">A new student has signed up for the 2026 September Holidays Math and Science Workshop.</p>'
     + '<table style="border-collapse:collapse;font-size:14px;width:100%;">' + htmlRows + '</table>'
     + '</div>';
 
@@ -2037,7 +2025,7 @@ async function sendEnrollmentNotification(data) {
 }
 
 async function sendRegistrationSummary() {
-  const snapshot = await db.collection('june2026_registrations')
+  const snapshot = await db.collection('sep2026_registrations')
     .orderBy('submittedAt', 'asc')
     .get();
 
@@ -2140,14 +2128,16 @@ async function sendCustomerConfirmation(data) {
   // Customer-facing confirmation sent to the parent's email, including a
   // copy of their uploaded PayNow receipt as an attachment.
   const priceLabel = '$' + data.price;
-  const levelLabel = data.level === 'P6' ? 'P6 Science' : 'P5 Science';
+  const levelLabel = data.level === 'Science'
+    ? 'Science September Holiday Workshop'
+    : 'Math September Workshop';
 
   const rows = [
     ['Student', data.studentName],
     ['Parent', data.parentName],
     ['Parent Email', data.email],
     ['Parent WhatsApp', data.whatsapp ? formatWhatsappDisplay(data.whatsapp) : '—'],
-    ['Level', levelLabel],
+    ['Workshop', levelLabel],
     ['Class Mode', data.mode],
     ['Slot', data.slotLabel],
     ['Amount Paid', priceLabel]
@@ -2163,10 +2153,10 @@ async function sendCustomerConfirmation(data) {
   const html = ''
     + '<div style="font-family:Arial,Helvetica,sans-serif;color:#171717;max-width:640px;">'
     + '<h2 style="margin:0 0 6px;color:#000;">Registration Confirmed</h2>'
-    + '<p style="color:#525252;font-size:13px;margin:0 0 18px;">Polymath Learning Centre — 2026 June Holiday Programme</p>'
+    + '<p style="color:#525252;font-size:13px;margin:0 0 18px;">Polymath Learning Centre — 2026 September Holidays Math and Science Workshop</p>'
     + '<p style="font-size:14px;line-height:1.6;margin:0 0 16px;">'
     + 'Dear ' + escapeHtml(data.parentName) + ',<br><br>'
-    + 'Thank you for registering <strong>' + escapeHtml(data.studentName) + '</strong> for the 2026 June Holiday Programme. '
+    + 'Thank you for registering <strong>' + escapeHtml(data.studentName) + '</strong> for the 2026 September holiday workshops. '
     + 'Your registration is confirmed and your PayNow receipt has been received. A copy is attached to this email for your records.'
     + '</p>'
     + '<h3 style="font-size:14px;margin:22px 0 8px;">Enrollment Details</h3>'
@@ -2190,7 +2180,7 @@ async function sendCustomerConfirmation(data) {
 
   const text = 'Registration Confirmed — Polymath Learning Centre\n\n'
     + 'Dear ' + data.parentName + ',\n\n'
-    + 'Thank you for registering ' + data.studentName + ' for the 2026 June Holiday Programme. '
+    + 'Thank you for registering ' + data.studentName + ' for the 2026 September holiday workshops. '
     + 'Your registration is confirmed and your PayNow receipt is attached.\n\n'
     + rows.map(([k, v]) => k + ': ' + v).join('\n') + '\n'
     + (data.receiptURL ? 'Receipt link: ' + data.receiptURL + '\n' : '')
@@ -2252,11 +2242,11 @@ async function submitForm() {
   try {
     const timestamp = Date.now();
     const safeName = receiptFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-    const ref = storageService.ref(`june2026_receipts/${slotVal}/${timestamp}_${safeName}`);
+    const ref = storageService.ref(`sep2026_receipts/${slotVal}/${timestamp}_${safeName}`);
     await ref.put(receiptFile);
     const receiptURL = await ref.getDownloadURL();
 
-    await db.collection('june2026_registrations').add({
+    await db.collection('sep2026_registrations').add({
       studentName, parentName, email, whatsapp, level, mode,
       slot: slotVal,
       slotLabel: SLOT_CONFIG[slotVal].label,
@@ -2287,7 +2277,7 @@ async function submitForm() {
     }
 
     document.getElementById('success-programme').textContent =
-      level + ' Science Workshop — ' + SLOT_CONFIG[slotVal].label;
+      level + ' September Workshop — ' + SLOT_CONFIG[slotVal].label;
     document.getElementById('success-overlay').classList.add('show');
   } catch (err) {
     console.error('Submission error:', err);
@@ -2406,7 +2396,7 @@ function renderAdminRegistrations() {
     ).join('');
   };
 
-  const levelOptions = (current) => ['P5', 'P6'].map(l =>
+  const levelOptions = (current) => ['Science', 'Math'].map(l =>
     '<option value="' + l + '"' + (l === current ? ' selected' : '') + '>' + l + '</option>'
   ).join('');
 
@@ -2420,7 +2410,7 @@ function renderAdminRegistrations() {
       +   '<div class="admin-student-fields">'
       +     '<label class="full">Student Name'
       +       '<input type="text" data-field="studentName" value="' + escapeHtml(r.studentName || '') + '" oninput="' + dirty + '"></label>'
-      +     '<label>Level'
+      +     '<label>Workshop'
       +       '<select data-field="level" onchange="' + dirty + '">' + levelOptions(r.level) + '</select></label>'
       +     '<label>Parent Name'
       +       '<input type="text" data-field="parentName" value="' + escapeHtml(r.parentName || '') + '" oninput="' + dirty + '"></label>'
@@ -2486,7 +2476,7 @@ async function deleteStudent(id) {
   const btn = row ? row.querySelector('.delete-btn') : null;
   if (btn) { btn.disabled = true; btn.textContent = 'Deleting…'; }
   try {
-    await db.collection('june2026_registrations').doc(id).delete();
+    await db.collection('sep2026_registrations').doc(id).delete();
     // The onSnapshot listener will refresh the list automatically.
   } catch (err) {
     console.error('deleteStudent failed:', err);
@@ -2525,7 +2515,7 @@ async function saveStudentEdit(id) {
   const original = btn.textContent;
   btn.textContent = 'Saving…';
   try {
-    await db.collection('june2026_registrations').doc(id)
+    await db.collection('sep2026_registrations').doc(id)
       .update({ studentName, parentName, email, whatsapp, level, slot, mode });
     btn.classList.remove('dirty');
     btn.textContent = 'Saved';
@@ -2551,22 +2541,22 @@ function requireAdmin() {
   return true;
 }
 
-// One-click migration: reassigns every existing registration's slot to P6-S1
-// (2 & 3 June). Runs entirely from the browser using the same Firestore client
+// One-click migration: reassigns every existing registration's slot to SCI-S1
+// (7–9 Sep). Runs entirely from the browser using the same Firestore client
 // the rest of the page uses, so no manual Firebase console editing is needed.
-async function resetAllToP6S1() {
+async function resetAllToSciS1() {
   if (!requireAdmin()) return;
-  const TARGET = 'P6-S1';
+  const TARGET = 'SCI-S1';
   const btn = document.getElementById('admin-reset-btn');
   const statusEl = document.getElementById('admin-reset-status');
-  if (!confirm('This will set EVERY registration\'s slot to P6-S1 (2 & 3 June). Continue?')) return;
+  if (!confirm('This will set EVERY registration\'s slot to SCI-S1 (7–9 Sep). Continue?')) return;
 
   btn.disabled = true;
   btn.style.opacity = '0.6';
   statusEl.textContent = 'Fetching registrations…';
 
   try {
-    const snap = await db.collection('june2026_registrations').get();
+    const snap = await db.collection('sep2026_registrations').get();
     const docs = snap.docs.filter(d => (d.data().slot || '') !== TARGET);
     if (docs.length === 0) {
       statusEl.textContent = 'Nothing to update — all registrations already on ' + TARGET + '.';
