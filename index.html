@@ -1180,7 +1180,7 @@
     <div class="header-badge">2026 September Holidays</div>
     <h1>Math and Science Workshop Registration</h1>
     <h2>PSLE Math &amp; Science Revision</h2>
-    <p>3-day intensive workshops, 9 hours each. Held in person at our Clementi centre — 12 seats per workshop. Conducted by Mr. Chung, founder of Polymath Learning Centre.</p>
+    <p>3-day intensive workshops, 9 hours each. Held in person at 433 Clementi Avenue 3, #01-266, Singapore 120433 — 12 seats per workshop. Conducted by Mr. Chung, founder of Polymath Learning Centre.</p>
   </header>
 
   <!-- INFO STRIP -->
@@ -1263,7 +1263,7 @@
         <select id="mode" required title="Physical classes only — mock exams are conducted on-site at our Clementi centre (max 12 students)">
           <option value="Physical" selected>Physical @ Clementi — $360 (max 12 students)</option>
         </select>
-        <div class="hint">Physical classes only, as mock exams are conducted on-site at our Clementi centre. Limited to 12 seats per workshop.</div>
+        <div class="hint">Physical classes only, as mock exams are conducted on-site. Venue: 433 Clementi Avenue 3, #01-266, Singapore 120433. Limited to 12 seats per workshop.</div>
       </div>
       <div class="step-hint" id="hint-mode">Select a workshop in Step 2 to unlock this step.</div>
     </div>
@@ -1352,7 +1352,7 @@
           <li>Please double-check the details above — especially the student's name, level, slot and parent contact details — so we can look after your child properly.</li>
           <li>Kindly note that, as seats are limited and prepared in advance, <strong>registration fees are non-refundable</strong> once your booking is confirmed. We appreciate your understanding.</li>
           <li>If you need to change your slot or class mode after registering, please drop us a WhatsApp message as early as possible — we'll do our best to accommodate, subject to seat availability.</li>
-          <li>A confirmation email (with a copy of your receipt attached) will be sent to the email address you provided. Full joining details — Zoom link or venue directions — will follow closer to the programme dates.</li>
+          <li>A confirmation email (with a copy of your receipt attached) will be sent to the email address you provided. Classes are held at 433 Clementi Avenue 3, #01-266, Singapore 120433.</li>
           <li>The workshop will be personally conducted by Mr. Chung, founder of Polymath Learning Centre.</li>
           <li>By submitting this form, you also give us permission to contact you via the email and WhatsApp number you provided, solely for matters related to this booking.</li>
         </ul>
@@ -2138,6 +2138,7 @@ async function sendCustomerConfirmation(data) {
     ['Workshop', levelLabel],
     ['Class Mode', data.mode],
     ['Slot', data.slotLabel],
+    ['Venue', '433 Clementi Avenue 3, #01-266, Singapore 120433'],
     ['Amount Paid', priceLabel]
   ];
 
@@ -2165,7 +2166,7 @@ async function sendCustomerConfirmation(data) {
     + '<h3 style="font-size:14px;margin:22px 0 8px;">Important Reminders</h3>'
     + '<ul style="font-size:13px;color:#525252;line-height:1.7;padding-left:20px;margin:0 0 16px;">'
     + '<li><strong style="color:#dc2626;">No refunds</strong> will be issued once registration is confirmed.</li>'
-    + '<li>Zoom link or venue details will be sent closer to the programme dates.</li>'
+    + '<li>Venue: 433 Clementi Avenue 3, #01-266, Singapore 120433.</li>'
     + '<li>Please keep this email as proof of your registration.</li>'
     + '</ul>'
     + '<p style="color:#525252;font-size:13px;margin:22px 0 0;">'
@@ -2184,7 +2185,7 @@ async function sendCustomerConfirmation(data) {
     + (data.receiptURL ? 'Receipt link: ' + data.receiptURL + '\n' : '')
     + '\nImportant:\n'
     + '- No refunds once confirmed.\n'
-    + '- Zoom link / venue details will be sent closer to the programme dates.\n'
+    + '- Venue: 433 Clementi Avenue 3, #01-266, Singapore 120433.\n'
     + '- Please keep this email as proof of your registration.\n\n'
     + 'Questions? WhatsApp +65 9645 0588\n\n'
     + 'Polymath Learning Centre';
