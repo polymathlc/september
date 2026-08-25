@@ -865,6 +865,33 @@
     color: var(--white);
   }
 
+  /* Duplicate-registration highlighting in the admin console. */
+  .admin-group.dup-group > summary { color: var(--danger); }
+  .admin-group .count-badge.danger { background: var(--danger); color: var(--white); }
+  .admin-student.dup-row { background: #fdf5f5; }
+  .dup-cluster-head {
+    padding: 10px 12px 0;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-500);
+    word-break: break-all;
+  }
+  .dup-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .dup-tag.danger { background: var(--danger); color: var(--white); }
+  .dup-tag.muted { background: var(--gray-200); color: var(--gray-700); }
+
   .admin-panel.show { display: block; }
 
   .admin-panel h3 {
@@ -2383,6 +2410,41 @@ function renderAdminRegistrations() {
     else orphans.push(r);
   });
 
+  // ── Duplicate detection ──
+  // A parent who submits the form twice by mistake lands as two separate
+  // documents, each filed under whatever slot it picked, so the repeat is easy
+  // to miss when scanning the slot groups. Cluster registrations by parent
+  // email — the one field a parent is unlikely to vary between two submissions,
+  // unlike name spelling — and surface those clusters at the top of the panel.
+  const parentKey  = (r) => (r.email || '').trim().toLowerCase();
+  const studentKey = (r) => (r.studentName || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  // submittedAt is a Firestore Timestamp, and is briefly null on a just-written
+  // doc while the server timestamp resolves — treat that as "oldest".
+  const submittedMs = (r) =>
+    (r.submittedAt && typeof r.submittedAt.toMillis === 'function') ? r.submittedAt.toMillis() : 0;
+
+  const byParent = {};
+  allRegistrations.forEach(r => {
+    const k = parentKey(r);
+    if (!k) return;
+    (byParent[k] = byParent[k] || []).push(r);
+  });
+  // Oldest first inside each cluster, so the accidental repeat is the one at
+  // the bottom — that's normally the row to delete.
+  const dupClusters = Object.keys(byParent)
+    .filter(k => byParent[k].length > 1)
+    .map(k => byParent[k].slice().sort((a, b) => submittedMs(a) - submittedMs(b)));
+  // Two tiers: every clustered row is worth *reviewing*, but only a repeat of
+  // the same student under the same parent email is an actual accidental
+  // double-submit. Reserve the red highlight for those so a parent enrolling
+  // two different children doesn't look like an error.
+  const dupIds = {};
+  dupClusters.forEach(list => {
+    const counts = {};
+    list.forEach(r => { counts[studentKey(r)] = (counts[studentKey(r)] || 0) + 1; });
+    list.forEach(r => { if (counts[studentKey(r)] > 1) dupIds[r._id] = true; });
+  });
+
   const slotOptions = (current) => Object.keys(SLOT_CONFIG).map(k =>
     '<option value="' + k + '"' + (k === current ? ' selected' : '') + '>'
     + escapeHtml(SLOT_CONFIG[k].label) + '</option>'
@@ -2399,13 +2461,19 @@ function renderAdminRegistrations() {
     '<option value="' + l + '"' + (l === current ? ' selected' : '') + '>' + l + '</option>'
   ).join('');
 
-  const renderRow = (r) => {
+  // `tag` is optional badge markup appended to the student name — used to mark
+  // rows that belong to a duplicate cluster. The same registration can be
+  // rendered twice (once under Possible Duplicates, once under its slot), so
+  // every control resolves its own row via `this` rather than by data-id
+  // lookup, which would always find the first copy.
+  const renderRow = (r, tag) => {
     const id = r._id;
-    const dirty = 'markStudentDirty(\'' + id + '\')';
+    const dirty = 'markStudentDirty(this)';
     return ''
-      + '<div class="admin-student" data-id="' + escapeHtml(id) + '">'
+      + '<div class="admin-student' + (dupIds[r._id] ? ' dup-row' : '') + '" data-id="' + escapeHtml(id) + '">'
       +   '<div class="admin-student-name">' + escapeHtml(r.studentName || '(no name)')
-      +     ' <span style="font-weight:400;color:var(--gray-500);font-size:10px;">' + escapeHtml(r.level || '') + '</span></div>'
+      +     ' <span style="font-weight:400;color:var(--gray-500);font-size:10px;">' + escapeHtml(r.level || '') + '</span>'
+      +     (tag || '') + '</div>'
       +   '<div class="admin-student-fields">'
       +     '<label class="full">Student Name'
       +       '<input type="text" data-field="studentName" value="' + escapeHtml(r.studentName || '') + '" oninput="' + dirty + '"></label>'
@@ -2421,40 +2489,73 @@ function renderAdminRegistrations() {
       +   '<div class="admin-student-controls">'
       +     '<select data-field="slot" onchange="' + dirty + '">' + slotOptions(r.slot) + '</select>'
       +     '<select data-field="mode" onchange="' + dirty + '">' + modeOptions(r.mode) + '</select>'
-      +     '<button onclick="saveStudentEdit(\'' + id + '\')">Save</button>'
-      +     '<button class="delete-btn" onclick="deleteStudent(\'' + id + '\')" title="Delete this registration permanently">Delete</button>'
+      +     '<button class="save-btn" onclick="saveStudentEdit(this, \'' + id + '\')">Save</button>'
+      +     '<button class="delete-btn" onclick="deleteStudent(this, \'' + id + '\')" title="Delete this registration permanently">Delete</button>'
       +   '</div>'
       + '</div>';
   };
 
   let html = '';
+
+  if (dupClusters.length) {
+    const dupCount = dupClusters.reduce((n, list) => n + list.length, 0);
+    html += '<details class="admin-group dup-group" open>'
+      + '<summary>Possible Duplicates'
+      +   ' <span class="count-badge danger">' + dupCount + '</span></summary>'
+      + '<div>'
+      +   '<div style="padding:10px 12px 0;font-size:11px;color:var(--gray-500);line-height:1.5;">'
+      +     'These parent email addresses appear on more than one registration. '
+      +     'If one was submitted twice by mistake, delete the repeat below — '
+      +     'a parent enrolling two different children is not a duplicate.'
+      +   '</div>'
+      +   dupClusters.map(list => {
+            const first = list[0];
+            const sameStudent = list.every(r => studentKey(r) === studentKey(first));
+            return '<div class="dup-cluster-head">'
+              + escapeHtml(first.email || '') + ' — ' + list.length + ' registrations'
+              + (sameStudent ? ' · same student' : ' · different students')
+              + '</div>'
+              + list.map((r, i) => renderRow(r, i === 0
+                  ? '<span class="dup-tag muted">first</span>'
+                  : dupIds[r._id]
+                    ? '<span class="dup-tag danger">repeat ' + (i + 1) + ' · same student</span>'
+                    : '<span class="dup-tag muted">other child</span>'
+                )).join('');
+          }).join('')
+      + '</div></details>';
+  }
+
   Object.keys(SLOT_CONFIG).forEach(slotId => {
     const list = groups[slotId];
     html += '<details class="admin-group"' + (list.length ? ' open' : '') + '>'
       + '<summary>' + escapeHtml(SLOT_CONFIG[slotId].label)
       +   ' <span class="count-badge">' + list.length + '</span></summary>'
-      + '<div>' + (list.length ? list.map(renderRow).join('') : '<div style="padding:12px;font-size:11px;color:var(--gray-500);">No registrations.</div>') + '</div>'
+      + '<div>' + (list.length
+          ? list.map(r => renderRow(r, dupIds[r._id] ? '<span class="dup-tag danger">duplicate</span>' : '')).join('')
+          : '<div style="padding:12px;font-size:11px;color:var(--gray-500);">No registrations.</div>') + '</div>'
       + '</details>';
   });
   if (orphans.length) {
     html += '<details class="admin-group" open>'
       + '<summary>Unassigned / Unknown Slot <span class="count-badge">' + orphans.length + '</span></summary>'
-      + '<div>' + orphans.map(renderRow).join('') + '</div>'
+      + '<div>' + orphans.map(r => renderRow(r, dupIds[r._id] ? '<span class="dup-tag danger">duplicate</span>' : '')).join('') + '</div>'
       + '</details>';
   }
   container.innerHTML = html;
 }
 
-function markStudentDirty(id) {
-  const row = document.querySelector('.admin-student[data-id="' + id + '"]');
+// `el` is the input/select that changed. A duplicate registration is rendered
+// in two places at once, so mark the copy the admin is actually typing in.
+function markStudentDirty(el) {
+  const row = el && el.closest ? el.closest('.admin-student') : null;
   if (!row) return;
-  const btn = row.querySelector('button');
+  const btn = row.querySelector('.save-btn');
   if (btn) { btn.classList.add('dirty'); btn.textContent = 'Save *'; }
 }
 
 // Permanently removes a registration from Firestore. Requires the admin to
 // type the student's name to confirm, since this is irreversible.
-async function deleteStudent(id) {
+async function deleteStudent(el, id) {
   if (!requireAdmin()) return;
   const reg = allRegistrations.find(r => r._id === id);
   if (!reg) { alert('Registration not found.'); return; }
@@ -2471,8 +2572,7 @@ async function deleteStudent(id) {
     alert('Name did not match. Delete cancelled.');
     return;
   }
-  const row = document.querySelector('.admin-student[data-id="' + id + '"]');
-  const btn = row ? row.querySelector('.delete-btn') : null;
+  const btn = (el && el.closest) ? el.closest('.admin-student').querySelector('.delete-btn') : null;
   if (btn) { btn.disabled = true; btn.textContent = 'Deleting…'; }
   try {
     await db.collection('sep2026_registrations').doc(id).delete();
@@ -2484,9 +2584,9 @@ async function deleteStudent(id) {
   }
 }
 
-async function saveStudentEdit(id) {
+async function saveStudentEdit(el, id) {
   if (!requireAdmin()) return;
-  const row = document.querySelector('.admin-student[data-id="' + id + '"]');
+  const row = (el && el.closest) ? el.closest('.admin-student') : null;
   if (!row) return;
   const fieldVal = (f) => {
     const el = row.querySelector('[data-field="' + f + '"]');
@@ -2509,7 +2609,7 @@ async function saveStudentEdit(id) {
     return;
   }
 
-  const btn = row.querySelector('button');
+  const btn = row.querySelector('.save-btn');
   btn.disabled = true;
   const original = btn.textContent;
   btn.textContent = 'Saving…';
